@@ -1,20 +1,16 @@
 package com.major.TimeTable.user;
 
+import com.major.TimeTable.common.Constants;
 import com.major.TimeTable.loginCred.LoginDetails;
 import com.major.TimeTable.loginCred.LoginDetailsRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
@@ -28,11 +24,13 @@ public class UserService {
 
     private final LoginDetailsRepo loginDetailsRepo;
     private final UserRepo userRepo;
+    private final UserAttendanceRepo userAttendanceRepo;
 
     @Autowired
-    public UserService(UserRepo userRepo, LoginDetailsRepo loginDetailsRepo) {
+    public UserService(UserRepo userRepo, LoginDetailsRepo loginDetailsRepo,UserAttendanceRepo userAttendanceRepo) {
         this.userRepo = userRepo;
         this.loginDetailsRepo = loginDetailsRepo;
+        this.userAttendanceRepo = userAttendanceRepo;
     }
 
 
@@ -40,6 +38,12 @@ public class UserService {
         LoginDetails loginDetails = new LoginDetails();
         if(userRepo.findByEmail(user.getContactDetails().getEmail()) != null) {
             throw new RuntimeException("User already exists");
+        }
+        if(user.getRole()== Constants.Role.TEACHER){
+            UserAttendance attendance=  new UserAttendance();
+            attendance.setUserId(user.getId());
+            attendance.setDateTime(new ArrayList<>());
+            userAttendanceRepo.save(attendance);
         }
         userRepo.save(user);
         String defPas = user.getName() + "@" + user.getContactDetails().getPhone().substring(6, 10);
@@ -161,7 +165,6 @@ public class UserService {
             query.setParameter("department", filter.getDepartment());
         }
         if(filter.getPageNo()!=null&&filter.getPageSize()!=null){
-            Pageable pageable= PageRequest.of(filter.getPageNo(),filter.getPageSize());
             query.setFirstResult((filter.getPageNo()-1)*filter.getPageSize());
             query.setMaxResults(filter.getPageSize());
         }

@@ -6,7 +6,6 @@ import com.major.TimeTable.common.ContactDetails;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -29,11 +28,6 @@ public class User {
     private Constants.Section section;
     private Constants.Semester semester;
     private Constants.Branch branch;
-    @ElementCollection
-    @CollectionTable(name = "user_leave", joinColumns = @JoinColumn(name = "user_id"))
-    @MapKeyColumn(name = "leave_date")
-    @Column(name = "leave_reason")
-    private Map<LocalDate,String> leave;
     private Date createdTimeStamp;
     private Date updatedTimeStamp;
     private Constants.Role role;
@@ -44,7 +38,6 @@ public class User {
             this.updatedTimeStamp = this.createdTimeStamp;
             this.contactDetails = new ContactDetails();
             this.addressDetails = new AddressDetails();
-            this.leave=new HashMap<>();
         }
     }
 }

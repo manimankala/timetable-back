@@ -5,7 +5,6 @@ import com.major.TimeTable.user.User;
 import com.major.TimeTable.user.UserRepo;
 import org.springframework.stereotype.Service;
 
-import javax.management.Query;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +20,7 @@ public class TimeTableService {
     }
 
     public TimeTable createTimeTable(TimeTable timeTable) {
-        if(timeTable.getCreatedBy()!=null){
+        if(timeTable.getCreatedById()!=null){
             Optional<User> user=userRepo.findById(timeTable.getCreatedById());
             if(user.isPresent()){
                 if(user.get().getRole()== Constants.Role.ADMIN) {

@@ -1,6 +1,7 @@
 package com.major.TimeTable.notification;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
