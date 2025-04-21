@@ -1,6 +1,7 @@
 package com.major.TimeTable.timetable;
 
 import com.major.TimeTable.common.Constants;
+import com.major.TimeTable.common.TimeTableEntry;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,7 +24,7 @@ public class TimeTable {
     private Constants.Semester semester;
     private Constants.Branch branch;
     @ElementCollection
-    private List<TimeTableElem> elemList;
+    private List<TimeTableEntry> elemList;
     private Date createdTimeStamp;
     private Date updatedTimeStamp;
 

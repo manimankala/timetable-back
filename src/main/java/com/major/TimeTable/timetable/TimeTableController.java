@@ -2,6 +2,7 @@ package com.major.TimeTable.timetable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class TimeTableController {
     }
 
     @PostMapping(value = "")
-    public TimeTable createTimeTable(TimeTable timeTable) {
+    public TimeTable createTimeTable(@RequestBody TimeTable timeTable) {
         return timeTableService.createTimeTable(timeTable);
     }
 
