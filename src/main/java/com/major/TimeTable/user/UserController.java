@@ -19,24 +19,24 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User createStaff(@RequestBody User user) {
-        return userService.createUser(user);
+    public Response createStaff(@RequestBody User user) {
+        return new Response(userService.createUser(user));
     }
     @PutMapping(value = "/filter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Response filterUser(@RequestBody UserFilter filter) {
         return new Response(userService.filterUsers(filter));
     }
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String updateUser(@RequestBody User user) {
-        return userService.updateUser(user);
+    public Response updateUser(@RequestBody User user) {
+        return new Response(userService.updateUser(user));
     }
     @PutMapping(value = "/change-password/admin")
-    public String changePassword(@RequestParam String email, @RequestParam String password) {
-        return userService.changePassword(email, password);
+    public Response changePassword(@RequestParam String email, @RequestParam String password) {
+        return new Response(userService.changePassword(email, password));
     }
     @DeleteMapping(value = "")
-    public String deleteUser(@RequestParam UUID id) {
-        return userService.deleteUser(id);
+    public Response deleteUser(@RequestParam UUID id) {
+        return new Response(userService.deleteUser(id));
     }
 }
 

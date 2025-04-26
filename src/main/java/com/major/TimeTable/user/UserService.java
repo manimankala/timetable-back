@@ -5,7 +5,6 @@ import com.major.TimeTable.loginCred.LoginDetails;
 import com.major.TimeTable.loginCred.LoginDetailsRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Slf4j
 @Service
 public class UserService {
     @Autowired
@@ -174,8 +172,9 @@ public class UserService {
 
     public String deleteUser(UUID id){
         if(userRepo.findById(id).isPresent()) {
+            String result= userRepo.findById(id).get().getName().toLowerCase();
             userRepo.deleteById(id);
-            return userRepo.findById(id).get().getRole().toString().toLowerCase()+" Deleted Successfully";
+            return result+" Deleted Successfully";
         }
         else {
             throw new RuntimeException("User not found");

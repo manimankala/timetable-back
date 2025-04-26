@@ -2,13 +2,11 @@ package com.major.TimeTable.loginCred;
 
 import com.major.TimeTable.common.CustomException;
 import com.major.TimeTable.common.Response;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @CrossOrigin("*")
@@ -46,7 +44,7 @@ public class LoginController {
    }
 
     @GetMapping
-    public List<LoginDetails> getAllLoginDetails() {
-        return loginDetailsRepo.findAll();
+    public Response getAllLoginDetails() {
+        return new Response(loginDetailsRepo.findAll());
     }
 }

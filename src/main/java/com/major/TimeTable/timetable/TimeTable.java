@@ -1,7 +1,6 @@
 package com.major.TimeTable.timetable;
 
 import com.major.TimeTable.common.Constants;
-import com.major.TimeTable.common.TimeTableEntry;
 import jakarta.persistence.*;
 import lombok.Data;
 
