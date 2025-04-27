@@ -24,7 +24,7 @@ public class BusinessService {
         user.setRole(Constants.Role.ADMIN);
         user.setBusinessId(temp.getId());
         user.setBusinessName(temp.getName());
-        user.getContactDetails().setEmail("admin@gmail.com");
+        user.getContactDetails().setEmail("admin"+business.getId().toString().substring(0,4)+"@gmail.com");
         user.getContactDetails().setPhone("1234567890");
         user.setName("Admin");
         userService.createUser(user);
